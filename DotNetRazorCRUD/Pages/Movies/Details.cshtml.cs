@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using DotNetRazorCRUD.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using DotNetRazorCRUD.Models;
+using System.Threading.Tasks;
 
 namespace DotNetRazorCRUD.Pages.Movies
 {
@@ -24,10 +21,12 @@ namespace DotNetRazorCRUD.Pages.Movies
         {
             if (id == null)
             {
-                return NotFound();
+                Movie =  await _context.Movie.FirstOrDefaultAsync();
             }
-
-            Movie = await _context.Movie.FirstOrDefaultAsync(m => m.ID == id);
+            else
+            {
+                Movie = await _context.Movie.FirstOrDefaultAsync(m => m.ID == id);
+            }
 
             if (Movie == null)
             {
